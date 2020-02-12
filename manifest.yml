@@ -1,0 +1,9 @@
+---
+applications:
+  - name: utility
+    instances: 1
+    memory: 750M
+    disk_quota: 650M
+    path: target/utility.jar
+    env:
+      spring.profiles.active: dev
