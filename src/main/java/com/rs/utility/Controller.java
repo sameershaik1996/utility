@@ -1,5 +1,7 @@
 package com.rs.utility;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,15 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/")
 public class Controller {
     private final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
+    private final ObjectMapper mapper=new ObjectMapper();
     @PostMapping("gateway")
-    public ResponseEntity<?> processGateway(@RequestBody Object inputObject){
-        LOGGER.info("gatewayUEObject {}", MapUtil.convertToMap(inputObject));
+    public ResponseEntity<?> processGateway(@RequestBody Object inputObject) throws JsonProcessingException {
+
+
+        LOGGER.info("gatewayUEObject {}", mapper.writeValueAsString(inputObject));
         return new ResponseEntity<>(inputObject, HttpStatus.OK);
     }
 
     @PostMapping("exclude")
-    public ResponseEntity<?> exclude(@RequestBody Object inputObject){
-        LOGGER.info("excludeUEObject {}", MapUtil.convertToMap(inputObject));
+    public ResponseEntity<?> exclude(@RequestBody Object inputObject) throws JsonProcessingException {
+        LOGGER.info("excludeUEObject {}", mapper.writeValueAsString(inputObject));
         return new ResponseEntity<>(inputObject, HttpStatus.OK);
     }
 
